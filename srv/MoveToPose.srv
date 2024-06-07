@@ -1,0 +1,5 @@
+float32[9] rotation_matrix
+float32[6] grasp_pose
+float32[6] up_pose
+---
+bool success

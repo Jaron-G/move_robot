@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="move_robot_server" pkg="move_robot" type="move_robot_server.py" output="screen">  </node>
+  <!-- <node name="registration_cilent" pkg="halcon_package" type="registration_cilent.py" output="screen">  </node> -->
+</launch>
