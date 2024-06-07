@@ -2,11 +2,11 @@
 import rospy
 from move_robot.srv import MoveToPose,MoveToPoseResponse #注意是功能包名.srv
 
-def move_robot_to_pose():
+def move_robot_to_pose(x, y, z):
     rospy.wait_for_service('move_to_pose')
     try:
         move_to_pose = rospy.ServiceProxy('move_to_pose', MoveToPose)
-        resp1 = move_to_pose()
+        resp1 = move_to_pose(x, y, z)
         return resp1.success
     except rospy.ServiceException as e:
         rospy.logerr("Service call failed: %s"%e)

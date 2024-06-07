@@ -3,7 +3,6 @@
 '''
 This script is the main loop of the real-world grasping experiments
 '''
-
 import rospy
 import transforms3d
 import numpy as np
@@ -50,11 +49,9 @@ def moverobot(rotation_matrix, pose_grasp, pose_pre_grasp, frame_id = "base_link
     table_to_base_offset_y=1140
     table_to_base_offset_z=1000
     offset=[table_to_base_offset_x, table_to_base_offset_y, table_to_base_offset_z]
-    # Home pose 
-    ##更改符号
-    #home_position = [-pose_grasp[0]/1000,-pose_grasp[1]/1000,pose_grasp[2]/1000]
-    home_position = [(pose_grasp[0]+offset[0])/1000,(pose_grasp[1]+offset[1])/1000,(pose_grasp[2]+offset[2])/1000]
-    home_pose = construct_pose(home_position[0:3], rot_angle[0:3], frame_id='base_link')
+
+    goal_position = [(pose_grasp[0]+offset[0])/1000,(pose_grasp[1]+offset[1])/1000,(pose_grasp[2]+offset[2])/1000]
+    goal_pose = construct_pose(goal_position[0:3], rot_angle[0:3], frame_id='base_link')
 
     # Up pose
     up_position = [(pose_pre_grasp[0]+offset[0])/1000,(pose_pre_grasp[1]+offset[1])/1000,(pose_pre_grasp[2]+offset[2])/1000]
@@ -70,7 +67,7 @@ def moverobot(rotation_matrix, pose_grasp, pose_pre_grasp, frame_id = "base_link
     drop_pose = construct_pose(drop_position[0:3], drop_angle[0:3], frame_id='base_link')
 
     ur.go_to_cartesian_pose(up_pose)
-    ur.go_to_cartesian_pose(home_pose)
+    ur.go_to_cartesian_pose(goal_pose)
     rospy.sleep(1)
     gripper.close()
     rospy.sleep(1)
@@ -78,8 +75,3 @@ def moverobot(rotation_matrix, pose_grasp, pose_pre_grasp, frame_id = "base_link
     ur.go_to_cartesian_pose(drop_pose)
     gripper.open()
     rospy.sleep(1)
-
-
-if __name__ == '__main__':
-    rospy.init_node('robot', anonymous=True)
-    rospy.spin()

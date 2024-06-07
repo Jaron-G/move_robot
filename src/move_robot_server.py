@@ -10,6 +10,7 @@ def handle_move_to_pose(req):
     return MoveToPoseResponse(True)
 
 if __name__ == "__main__":
+    rospy.init_node("move_robot_server")
     server = rospy.Service('move_to_pose_service',MoveToPose, handle_move_to_pose)
     rospy.loginfo("Service server ready to take pose goals.")
     rospy.spin()
