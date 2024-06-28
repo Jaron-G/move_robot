@@ -113,6 +113,17 @@ class UR_robot(object):
         
         return current_pose
     
+    def reset(self):
+        move_group = self.move_group
+        move_group.set_named_target('home')
+        # `go()` returns a boolean indicating whether the planning and execution was successful.
+        success = move_group.go(wait=True)
+        # Calling `stop()` ensures that there is no residual movement
+        move_group.stop()
+        # It is always good to clear your targets after planning with poses.
+        # Note: there is no equivalent function for clear_joint_value_targets().
+        move_group.clear_pose_targets()  
+    
     # def add_box_objects(self, box_name, pose, box_size):
     #     box_pose = geometry_msgs.msg.PoseStamped()
     #     box_pose.header.frame_id = "base_link"

@@ -74,4 +74,5 @@ def moverobot(rotation_matrix, pose_grasp, pose_pre_grasp, frame_id = "base_link
     ur.go_to_cartesian_pose(up_pose)
     ur.go_to_cartesian_pose(drop_pose)
     gripper.open()
+    ur.reset()
     rospy.sleep(1)
